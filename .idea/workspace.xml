@@ -10,15 +10,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="59825e7d-0105-4b91-a769-73de20916de7" name="Default Changelist" comment="TaskFactory created">
-      <change afterPath="$PROJECT_DIR$/tests/Unit/TaskTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/laravel-test-assignment.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/laravel-test-assignment.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+    <list default="true" id="59825e7d-0105-4b91-a769-73de20916de7" name="Default Changelist" comment="Resource controller route created instead of many individuals">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/phpunit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/phpunit.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +173,7 @@
       <option name="presentableId" value="Default" />
       <updated>1601889687234</updated>
       <workItem from="1601889688363" duration="1888000" />
-      <workItem from="1601891601994" duration="8232000" />
+      <workItem from="1601891601994" duration="13183000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit and TaskController">
       <created>1601891833071</created>
@@ -202,7 +196,14 @@
       <option name="project" value="LOCAL" />
       <updated>1601892960013</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Resource controller route created instead of many individuals">
+      <created>1601899931206</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1601899931206</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -222,7 +223,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit and TaskController" />
     <MESSAGE value="TaskFactory created" />
-    <option name="LAST_COMMIT_MESSAGE" value="TaskFactory created" />
+    <MESSAGE value="Resource controller route created instead of many individuals" />
+    <option name="LAST_COMMIT_MESSAGE" value="Resource controller route created instead of many individuals" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2475" y="200" width="800" height="677" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601891053800">
@@ -241,10 +243,10 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2530" y="258" width="689" height="561" key="NewPhpClassDialog/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601893998945" />
-    <state x="2475" y="261" width="800" height="556" key="Vcs.Push.Dialog.v2" timestamp="1601891835036">
+    <state x="2475" y="261" width="800" height="556" key="Vcs.Push.Dialog.v2" timestamp="1601899932739">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2475" y="261" width="800" height="556" key="Vcs.Push.Dialog.v2/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601891835036" />
+    <state x="2475" y="261" width="800" height="556" key="Vcs.Push.Dialog.v2/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601899932739" />
     <state x="2020" y="98" width="1720" height="882" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1601893468553">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
@@ -253,5 +255,9 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2510" y="279" width="730" height="519" key="com.jetbrains.php.test.PhpNewTestDialog/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601893990309" />
+    <state x="2571" y="278" width="618" height="522" key="find.popup" timestamp="1601904214826">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2571" y="278" width="618" height="522" key="find.popup/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601904214826" />
   </component>
 </project>
