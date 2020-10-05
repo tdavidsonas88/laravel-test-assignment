@@ -4,20 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use League\Fractal\Manager;
+use League\Fractal\Resource\Collection;
 use Symfony\Component\HttpFoundation\Response;
+use Transformers\TaskTransformer;
 
 class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return JsonResponse
      */
     public function index()
     {
-        return new JsonResponse(Task::all());
+        $tasksArray = Task::all();
+        $fractal = new Manager();
+        $resource = new Collection($tasksArray, new TaskTransformer());
+        return $fractal->createData($resource)->toJson();
     }
 
     /**
@@ -33,7 +37,7 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return JsonResponse|\Illuminate\Http\Response|object
      */
     public function store(Request $request)
@@ -73,7 +77,7 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
      * @return TaskResource
      */

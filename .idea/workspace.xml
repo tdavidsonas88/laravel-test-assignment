@@ -10,12 +10,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="59825e7d-0105-4b91-a769-73de20916de7" name="Default Changelist" comment="implementation of deletion api">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f3fb96a1-2f2a-4840-90bb-895a84138488.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f3fb96a1-2f2a-4840-90bb-895a84138488.xml" afterDir="false" />
+    <list default="true" id="59825e7d-0105-4b91-a769-73de20916de7" name="Default Changelist" comment="TaskFactory with faker">
+      <change afterPath="$PROJECT_DIR$/transformers/TaskTransformer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/laravel-test-assignment.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/laravel-test-assignment.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Task.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Task.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/factories/TaskFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/TaskFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_05_093842_create_tasks_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_10_05_093842_create_tasks_table.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,6 +142,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/voku/portable-ascii" />
+      <path value="$PROJECT_DIR$/vendor/league/fractal" />
     </include_path>
   </component>
   <component name="ProjectId" id="1iS8ZIZIFxqAedPBwtOL8dizmjV" />
@@ -176,7 +180,8 @@
       <option name="presentableId" value="Default" />
       <updated>1601889687234</updated>
       <workItem from="1601889688363" duration="1888000" />
-      <workItem from="1601891601994" duration="19562000" />
+      <workItem from="1601891601994" duration="21806000" />
+      <workItem from="1601921865155" duration="2164000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit and TaskController">
       <created>1601891833071</created>
@@ -227,7 +232,14 @@
       <option name="project" value="LOCAL" />
       <updated>1601907851699</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="TaskFactory with faker">
+      <created>1601919633672</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1601919633672</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -243,6 +255,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit and TaskController" />
@@ -251,7 +264,8 @@
     <MESSAGE value="store task controller method implemented" />
     <MESSAGE value="Task controller and task resource" />
     <MESSAGE value="implementation of deletion api" />
-    <option name="LAST_COMMIT_MESSAGE" value="implementation of deletion api" />
+    <MESSAGE value="TaskFactory with faker" />
+    <option name="LAST_COMMIT_MESSAGE" value="TaskFactory with faker" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2475" y="200" width="800" height="677" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601891053800">
@@ -266,10 +280,11 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2613" y="297" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601893750800" />
-    <state x="2530" y="258" width="689" height="561" key="NewPhpClassDialog" timestamp="1601893998945">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state x="656" y="279" width="705" height="547" key="NewPhpClassDialog" timestamp="1601920604433">
+      <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="2530" y="258" width="689" height="561" key="NewPhpClassDialog/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601893998945" />
+    <state x="656" y="279" width="705" height="547" key="NewPhpClassDialog/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1601920604433" />
     <state x="2475" y="261" width="800" height="556" key="Vcs.Push.Dialog.v2" timestamp="1601899932739">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
