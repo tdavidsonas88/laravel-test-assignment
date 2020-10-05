@@ -10,8 +10,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="59825e7d-0105-4b91-a769-73de20916de7" name="Default Changelist" comment="store task controller method implemented">
+    <list default="true" id="59825e7d-0105-4b91-a769-73de20916de7" name="Default Changelist" comment="Task controller and task resource">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,7 +173,7 @@
       <option name="presentableId" value="Default" />
       <updated>1601889687234</updated>
       <workItem from="1601889688363" duration="1888000" />
-      <workItem from="1601891601994" duration="15670000" />
+      <workItem from="1601891601994" duration="16020000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit and TaskController">
       <created>1601891833071</created>
@@ -209,7 +210,14 @@
       <option name="project" value="LOCAL" />
       <updated>1601904850635</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Task controller and task resource">
+      <created>1601907532593</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1601907532593</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,7 +239,8 @@
     <MESSAGE value="TaskFactory created" />
     <MESSAGE value="Resource controller route created instead of many individuals" />
     <MESSAGE value="store task controller method implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="store task controller method implemented" />
+    <MESSAGE value="Task controller and task resource" />
+    <option name="LAST_COMMIT_MESSAGE" value="Task controller and task resource" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2475" y="200" width="800" height="677" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601891053800">
