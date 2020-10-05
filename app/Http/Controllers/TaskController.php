@@ -43,11 +43,8 @@ class TaskController extends Controller
             'description' => 'required'
         ]);
 
-        $task = Task::created($request->all());
-
         return response()->json([
-            'message' => 'Great success! New task created',
-            'task' => $task
+            'message' => 'Great success! New task created'
         ]);
     }
 

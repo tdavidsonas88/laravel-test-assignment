@@ -10,7 +10,16 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="59825e7d-0105-4b91-a769-73de20916de7" name="Default Changelist" comment="TaskFactory created" />
+    <list default="true" id="59825e7d-0105-4b91-a769-73de20916de7" name="Default Changelist" comment="TaskFactory created">
+      <change afterPath="$PROJECT_DIR$/tests/Unit/TaskTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/laravel-test-assignment.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/laravel-test-assignment.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/phpunit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/phpunit.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -128,6 +137,11 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
       <path value="$PROJECT_DIR$/vendor/fideloper/proxy" />
       <path value="$PROJECT_DIR$/vendor/fruitcake/laravel-cors" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/voku/portable-ascii" />
     </include_path>
   </component>
   <component name="ProjectId" id="1iS8ZIZIFxqAedPBwtOL8dizmjV" />
@@ -165,7 +179,7 @@
       <option name="presentableId" value="Default" />
       <updated>1601889687234</updated>
       <workItem from="1601889688363" duration="1888000" />
-      <workItem from="1601891601994" duration="1271000" />
+      <workItem from="1601891601994" duration="8232000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit and TaskController">
       <created>1601891833071</created>
@@ -181,7 +195,14 @@
       <option name="project" value="LOCAL" />
       <updated>1601892786999</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="TaskFactory created">
+      <created>1601892960013</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1601892960013</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,9 +233,25 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2557" y="341" width="635" height="396" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601889730831" />
+    <state x="2613" y="297" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1601893750800">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2613" y="297" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601893750800" />
+    <state x="2530" y="258" width="689" height="561" key="NewPhpClassDialog" timestamp="1601893998945">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2530" y="258" width="689" height="561" key="NewPhpClassDialog/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601893998945" />
     <state x="2475" y="261" width="800" height="556" key="Vcs.Push.Dialog.v2" timestamp="1601891835036">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2475" y="261" width="800" height="556" key="Vcs.Push.Dialog.v2/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601891835036" />
+    <state x="2020" y="98" width="1720" height="882" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1601893468553">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2020" y="98" width="1720" height="882" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601893468553" />
+    <state x="2510" y="279" width="730" height="519" key="com.jetbrains.php.test.PhpNewTestDialog" timestamp="1601893990309">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2510" y="279" width="730" height="519" key="com.jetbrains.php.test.PhpNewTestDialog/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1601893990309" />
   </component>
 </project>
