@@ -10,9 +10,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="59825e7d-0105-4b91-a769-73de20916de7" name="Default Changelist" comment="Task controller and task resource">
+    <list default="true" id="59825e7d-0105-4b91-a769-73de20916de7" name="Default Changelist" comment="implementation of deletion api">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f3fb96a1-2f2a-4840-90bb-895a84138488.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f3fb96a1-2f2a-4840-90bb-895a84138488.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Task.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Task.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/TaskFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/TaskFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_05_093842_create_tasks_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_10_05_093842_create_tasks_table.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +176,7 @@
       <option name="presentableId" value="Default" />
       <updated>1601889687234</updated>
       <workItem from="1601889688363" duration="1888000" />
-      <workItem from="1601891601994" duration="16020000" />
+      <workItem from="1601891601994" duration="19562000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit and TaskController">
       <created>1601891833071</created>
@@ -217,7 +220,14 @@
       <option name="project" value="LOCAL" />
       <updated>1601907532593</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="implementation of deletion api">
+      <created>1601907851699</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1601907851699</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -240,7 +250,8 @@
     <MESSAGE value="Resource controller route created instead of many individuals" />
     <MESSAGE value="store task controller method implemented" />
     <MESSAGE value="Task controller and task resource" />
-    <option name="LAST_COMMIT_MESSAGE" value="Task controller and task resource" />
+    <MESSAGE value="implementation of deletion api" />
+    <option name="LAST_COMMIT_MESSAGE" value="implementation of deletion api" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2475" y="200" width="800" height="677" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601891053800">

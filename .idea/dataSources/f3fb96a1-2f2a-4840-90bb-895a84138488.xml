@@ -902,7 +902,7 @@ SELECT|sys.sys_config:null
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="267" parent="246" name="title">
+    <column id="267" parent="246" name="name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
@@ -912,67 +912,82 @@ SELECT|sys.sys_config:null
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="269" parent="246" name="created_at">
+    <column id="269" parent="246" name="type">
       <Position>4</Position>
-      <DataType>timestamp|0s</DataType>
+      <DataType>enum(&apos;basic&apos;, &apos;advanced&apos;, &apos;expert&apos;)|0e</DataType>
+      <NotNull>1</NotNull>
     </column>
-    <column id="270" parent="246" name="updated_at">
+    <column id="270" parent="246" name="status">
       <Position>5</Position>
+      <DataType>enum(&apos;todo&apos;, &apos;closed&apos;, &apos;hold&apos;)|0e</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="271" parent="246" name="user_id">
+      <Position>6</Position>
+      <DataType>bigint(20) unsigned|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="272" parent="246" name="created_at">
+      <Position>7</Position>
       <DataType>timestamp|0s</DataType>
     </column>
-    <key id="271" parent="246" name="PRIMARY">
+    <column id="273" parent="246" name="updated_at">
+      <Position>8</Position>
+      <DataType>timestamp|0s</DataType>
+    </column>
+    <key id="274" parent="246" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="272" parent="247" name="id">
+    <column id="275" parent="247" name="id">
       <Position>1</Position>
       <DataType>bigint(20) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="273" parent="247" name="name">
+    <column id="276" parent="247" name="name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="274" parent="247" name="email">
+    <column id="277" parent="247" name="email">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="275" parent="247" name="email_verified_at">
+    <column id="278" parent="247" name="email_verified_at">
       <Position>4</Position>
       <DataType>timestamp|0s</DataType>
     </column>
-    <column id="276" parent="247" name="password">
+    <column id="279" parent="247" name="password">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="277" parent="247" name="remember_token">
+    <column id="280" parent="247" name="remember_token">
       <Position>6</Position>
       <DataType>varchar(100)|0s</DataType>
     </column>
-    <column id="278" parent="247" name="created_at">
+    <column id="281" parent="247" name="created_at">
       <Position>7</Position>
       <DataType>timestamp|0s</DataType>
     </column>
-    <column id="279" parent="247" name="updated_at">
+    <column id="282" parent="247" name="updated_at">
       <Position>8</Position>
       <DataType>timestamp|0s</DataType>
     </column>
-    <index id="280" parent="247" name="users_email_unique">
+    <index id="283" parent="247" name="users_email_unique">
       <ColNames>email</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="281" parent="247" name="PRIMARY">
+    <key id="284" parent="247" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="282" parent="247" name="users_email_unique">
+    <key id="285" parent="247" name="users_email_unique">
       <ColNames>email</ColNames>
       <UnderlyingIndexName>users_email_unique</UnderlyingIndexName>
     </key>
