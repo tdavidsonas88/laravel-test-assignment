@@ -11,18 +11,28 @@ use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use Symfony\Component\HttpFoundation\Response;
 use Transformers\TaskTransformer;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class TaskController extends Controller
 {
+    protected $user;
+
+    public function __construct()
+    {
+        $this->user = auth()->validate();
+//        parseToken()->authenticate();
+    }
+
     /**
      * Display a listing of the resource.
      *
      */
     public function index()
     {
-        $tasksArray = Task::all();
+        $tasks = $this->user->tasks()->get(["id", "name", "description", "type", "status", "user_id"])->toArray();
+//        $tasksArray = Task::all();
         $fractal = new Manager();
-        $resource = new Collection($tasksArray, new TaskTransformer());
+        $resource = new Collection($tasks, new TaskTransformer());
         return $fractal->createData($resource)->toJson();
     }
 
@@ -44,17 +54,35 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            "name" => "required",
+            "description" => "required"
+        ]);
+
         $task = new Task();
-        $task->name = $request->input('name');
-        $task->description = $request->input('description');
-        $task->type = $request->input('type');
-        $task->status = $request->input('status');
-        $task->user_id = $request->input('user_id');
-        $task->save();
-        return new JsonResponse(
-            'task ' . $task->title . ' was created successfully',
-            \Illuminate\Http\Response::HTTP_CREATED
-        );
+//        $task->name = $request->input('name');
+//        $task->description = $request->input('description');
+//        $task->type = $request->input('type');
+//        $task->status = $request->input('status');
+//        $task->user_id = $request->input('user_id');
+
+        $task->name = $request->name;
+        $task->description = $request->description;
+        $task->type = $request->type;
+        $task->status = $request->status;
+        $task->user_id = $request->user_id;
+
+        if ($this->user->tasks()->save($task)) {
+            return new JsonResponse(
+                'task ' . $task->title . ' was created successfully',
+                \Illuminate\Http\Response::HTTP_CREATED
+            );
+        } else {
+            return new JsonResponse(
+                'task ' . $task->title . ' failed to create',
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
     }
 
     /**
@@ -91,29 +119,41 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $task = Task::find($id);
-        $task->name = $request->input('name');
-        $task->description = $request->input('description');
-        $task->type = $request->input('type');
-        $task->status = $request->input('status');
-        $task->user_id = $request->input('user_id');
-        $task->save();
+        $this->validate($request, [
+            "name" => "required",
+            "description" => "required"
+        ]);
 
-        return new JsonResponse(
-            'task ' . $task->name . ' was updated successfully',
-            \Illuminate\Http\Response::HTTP_OK
-        );
+        $task = Task::find($id);
+        $task->name = $request->name;
+        $task->description = $request->description;
+        $task->type = $request->type;
+        $task->status = $request->status;
+        $task->user_id = $request->user_id;
+
+        if ($this->user->tasks()->save($task)) {
+            return new JsonResponse(
+                'task ' . $task->title . ' was updated successfully',
+                \Illuminate\Http\Response::HTTP_OK
+            );
+        } else {
+            return new JsonResponse(
+                'task ' . $task->title . ' failed to update',
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Task $task
      * @return string
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Task $task)
     {
-        $task = Task::findOrfail($id);
+//        $task = Task::findOrfail($id);
         if ($task->delete()) {
             return new JsonResponse("Task with id " . $id . " was deleted successfully", Response::HTTP_OK);
         }
