@@ -65,7 +65,7 @@ class TaskController extends Controller
         $task->description = $request->description;
         $task->type = $request->type;
         $task->status = $request->status;
-        $task->user_id = $request->user_id;
+        $task->user_id = $this->user->id;
 
         if ($this->user->tasks()->save($task)) {
             return new JsonResponse(
@@ -120,6 +120,14 @@ class TaskController extends Controller
         ]);
 
         $task = Task::find($id);
+
+        if ($task->user_id !== $this->user->id) {
+            return new JsonResponse(
+                'task ' . $task->title . ' cannot be update because you are not the owner of it',
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+
         $task->name = $request->name;
         $task->description = $request->description;
         $task->type = $request->type;
