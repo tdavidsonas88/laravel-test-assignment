@@ -61,12 +61,6 @@ class TaskController extends Controller
         ]);
 
         $task = new Task();
-//        $task->name = $request->input('name');
-//        $task->description = $request->input('description');
-//        $task->type = $request->input('type');
-//        $task->status = $request->input('status');
-//        $task->user_id = $request->input('user_id');
-
         $task->name = $request->name;
         $task->description = $request->description;
         $task->type = $request->type;
@@ -130,7 +124,6 @@ class TaskController extends Controller
         $task->description = $request->description;
         $task->type = $request->type;
         $task->status = $request->status;
-        $task->user_id = $request->user_id;
 
         if ($this->user->tasks()->save($task)) {
             return new JsonResponse(
