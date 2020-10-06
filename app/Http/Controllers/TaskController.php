@@ -156,7 +156,7 @@ class TaskController extends Controller
     {
 //        $task = Task::findOrfail($id);
         if ($task->delete()) {
-            return new JsonResponse("Task with id " . $id . " was deleted successfully", Response::HTTP_OK);
+            return new JsonResponse("Task " . $task->name . " was deleted successfully", Response::HTTP_OK);
         }
     }
 }
