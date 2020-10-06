@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
+use League\Fractal\Resource\Item;
 use Symfony\Component\HttpFoundation\Response;
 use Transformers\TaskTransformer;
 
@@ -43,23 +45,29 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $task = new Task();
-        $task->title = $request->input('title');
+        $task->name = $request->input('name');
         $task->description = $request->input('description');
+        $task->type = $request->input('type');
+        $task->status = $request->input('status');
+        $task->user_id = $request->input('user_id');
         $task->save();
-        return (new TaskResource($task))->response()->setStatusCode(\Illuminate\Http\Response::HTTP_CREATED);
+        return new JsonResponse(
+            'task ' . $task->title . ' was created successfully',
+            \Illuminate\Http\Response::HTTP_CREATED
+        );
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Task $task
+     * @return string
      */
     public function show(Task $task)
     {
-        /** @var Task $task */
-//        $task = Task::find($id);
-        return (new TaskResource($task))->response();
+        $fractal = new Manager();
+        $resource = new Item($task, new TaskTransformer());
+        return $fractal->createData($resource)->toJson();
     }
 
     /**
@@ -79,16 +87,22 @@ class TaskController extends Controller
      *
      * @param Request $request
      * @param  int  $id
-     * @return TaskResource
+     * @return JsonResponse
      */
     public function update(Request $request, $id)
     {
         $task = Task::find($id);
-        $task->title = $request->input('title');
+        $task->name = $request->input('name');
         $task->description = $request->input('description');
+        $task->type = $request->input('type');
+        $task->status = $request->input('status');
+        $task->user_id = $request->input('user_id');
         $task->save();
 
-        return new TaskResource($task);
+        return new JsonResponse(
+            'task ' . $task->name . ' was updated successfully',
+            \Illuminate\Http\Response::HTTP_OK
+        );
     }
 
     /**
@@ -101,7 +115,7 @@ class TaskController extends Controller
     {
         $task = Task::findOrfail($id);
         if ($task->delete()) {
-            return new Response("Task with id " . $id . " was deleted successfully");
+            return new JsonResponse("Task with id " . $id . " was deleted successfully", Response::HTTP_OK);
         }
     }
 }
