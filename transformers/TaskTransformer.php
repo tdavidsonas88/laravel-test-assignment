@@ -8,15 +8,15 @@ use League\Fractal\TransformerAbstract;
 
 class TaskTransformer extends TransformerAbstract
 {
-    public function transform(Task $task)
+    public function transform(Array $task)
     {
         return [
-            'id' => (int) $task->id,
-            'name' => $task->name,
-            'description' => $task->description,
-            'type' => $task->type,
-            'status' => $task->status,
-            'user' => User::find($task->user_id)->name
+            'id' => (int) $task['id'],
+            'name' => $task['name'],
+            'description' => $task['description'],
+            'type' => $task['type'],
+            'status' => $task['status'],
+            'user' => User::find($task['user_id'])->name
         ];
     }
 }
