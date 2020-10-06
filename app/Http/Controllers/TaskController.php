@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use League\Fractal\Manager;
@@ -20,9 +19,7 @@ class TaskController extends Controller
 
     public function __construct()
     {
-//        $this->user = auth()->validate();
         $this->user = JWTAuth::parseToken()->authenticate();
-
     }
 
     /**
@@ -57,7 +54,9 @@ class TaskController extends Controller
     {
         $this->validate($request, [
             "name" => "required",
-            "description" => "required"
+            "description" => "required",
+            "type" => "in:basic,advanced,expert",
+            "status" => "in:todo,closed,hold"
         ]);
 
         $task = new Task();
@@ -116,7 +115,9 @@ class TaskController extends Controller
     {
         $this->validate($request, [
             "name" => "required",
-            "description" => "required"
+            "description" => "required",
+            "type" => "in:basic,advanced,expert",
+            "status" => "in:todo,closed,hold"
         ]);
 
         $task = Task::find($id);
@@ -155,7 +156,6 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-//        $task = Task::findOrfail($id);
         if ($task->delete()) {
             return new JsonResponse("Task " . $task->name . " was deleted successfully", Response::HTTP_OK);
         }
