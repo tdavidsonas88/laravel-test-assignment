@@ -20,7 +20,8 @@ class TaskController extends Controller
     public function __construct()
     {
         $this->user = auth()->validate();
-//        parseToken()->authenticate();
+//        $this->user = JWTAuth::parseToken()->authenticate();
+
     }
 
     /**

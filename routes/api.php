@@ -22,11 +22,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 
-Route::post('login', 'App\Http\Controllers\AuthController@login');
+Route::post('login', 'App\Http\Controllers\AuthController@login')->name('login');
 Route::post('register', 'App\Http\Controllers\AuthController@register');
 
 Route::group(['middleware' => 'auth.jwt'], function () {
-    Route::get('logout', 'App\Http\Controllers\AuthController@logout');
+    Route::post('logout', 'App\Http\Controllers\AuthController@logout');
     Route::resource('tasks', TaskController::class);
 });
 
