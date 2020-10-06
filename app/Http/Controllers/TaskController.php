@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use League\Fractal\Manager;
@@ -19,8 +20,8 @@ class TaskController extends Controller
 
     public function __construct()
     {
-        $this->user = auth()->validate();
-//        $this->user = JWTAuth::parseToken()->authenticate();
+//        $this->user = auth()->validate();
+        $this->user = JWTAuth::parseToken()->authenticate();
 
     }
 
@@ -31,7 +32,6 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = $this->user->tasks()->get(["id", "name", "description", "type", "status", "user_id"])->toArray();
-//        $tasksArray = Task::all();
         $fractal = new Manager();
         $resource = new Collection($tasks, new TaskTransformer());
         return $fractal->createData($resource)->toJson();
