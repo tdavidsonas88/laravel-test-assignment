@@ -171,4 +171,9 @@ class TaskController extends Controller
             return new JsonResponse("Task " . $task->name . " was deleted successfully", Response::HTTP_OK);
         }
     }
+
+    public function attachUser(Task $task)
+    {
+
+    }
 }
