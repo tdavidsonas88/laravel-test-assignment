@@ -23,7 +23,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of user owned resource.
      *
      */
     public function index()

@@ -17,4 +17,9 @@ class Task extends Model
         'user_id',
     ];
 
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'task_id', 'id');
+    }
+
 }
