@@ -16,7 +16,8 @@ class TaskTransformer extends TransformerAbstract
             'description' => $task['description'],
             'type' => $task['type'],
             'status' => $task['status'],
-            'user' => User::find($task['user_id'])->name
+            'user' => User::find($task['user_id'])->name,
+            'messages' => $task['messages']
         ];
     }
 }

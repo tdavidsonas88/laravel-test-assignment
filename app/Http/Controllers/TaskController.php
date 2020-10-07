@@ -28,7 +28,11 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = $this->user->tasks()->get(["id", "name", "description", "type", "status", "user_id"])->toArray();
+        $tasks = $this->user
+            ->tasks()
+            ->with('messages')
+            ->get()
+            ->toArray();
         $fractal = new Manager();
         $resource = new Collection($tasks, new TaskTransformer());
         return $fractal->createData($resource)->toJson();

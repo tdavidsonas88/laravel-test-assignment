@@ -19,7 +19,7 @@ class Task extends Model
 
     public function messages()
     {
-        return $this->hasMany(Message::class, 'task_id', 'id');
+        return $this->hasMany(Message::class, 'task_id', 'id')->select();
     }
 
 }
