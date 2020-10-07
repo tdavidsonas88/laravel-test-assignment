@@ -14,7 +14,7 @@ class Task extends Model
         'description',
         'type',
         'status',
-        'owner',
+        'user_id',
     ];
 
 }
