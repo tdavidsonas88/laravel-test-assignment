@@ -60,7 +60,8 @@ class TaskController extends Controller
             "name" => "required",
             "description" => "required",
             "type" => "in:basic,advanced,expert",
-            "status" => "in:todo,closed,hold"
+            "status" => "in:todo,closed,hold",
+            "attach" => "array"
         ]);
 
         $task = new Task();
@@ -68,9 +69,14 @@ class TaskController extends Controller
         $task->description = $request->description;
         $task->type = $request->type;
         $task->status = $request->status;
-        $task->user_id = $this->user->id;
+        $task->owner = $this->user->id;
 
+        // task is attached to the owner on save
         if ($this->user->tasks()->save($task)) {
+            // task can be attached to other users
+            if (!empty($request->attach)) {
+                $this->attachUsersToTasks($request->attach);
+            }
             return new JsonResponse(
                 'task ' . $task->title . ' was created successfully',
                 \Illuminate\Http\Response::HTTP_CREATED
@@ -81,6 +87,8 @@ class TaskController extends Controller
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
+
+
     }
 
     /**
@@ -175,5 +183,15 @@ class TaskController extends Controller
     public function attachUser(Task $task)
     {
 
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function attachUsersToTasks($usersToAttach): void
+    {
+        foreach ($usersToAttach as $user) {
+            $this->user->tasks()->attach($user);
+        }
     }
 }
