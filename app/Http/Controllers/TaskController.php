@@ -160,15 +160,15 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        if ($task->user_id !== $this->user->id) {
+        if ($task->owner !== $this->user->id) {
             return new JsonResponse(
-                'task ' . $task->title . ' cannot be deleted because you are not the owner of it',
+                'task [' . $task->name . '] cannot be deleted because you are not the owner of it',
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
 
         if ($task->delete()) {
-            return new JsonResponse("Task " . $task->name . " was deleted successfully", Response::HTTP_OK);
+            return new JsonResponse("Task [" . $task->name . "] was deleted successfully", Response::HTTP_OK);
         }
     }
 
