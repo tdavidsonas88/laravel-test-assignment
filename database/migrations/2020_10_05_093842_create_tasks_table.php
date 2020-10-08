@@ -19,9 +19,6 @@ class CreateTasksTable extends Migration
             $table->text('description');
             $table->enum('type', ['basic', 'advanced', 'expert']);
             $table->enum('status', ['todo', 'closed', 'hold']);
-            $table->foreignId('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
             $table->timestamps();
         });
     }
