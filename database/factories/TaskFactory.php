@@ -26,6 +26,7 @@ class TaskFactory extends Factory
             'description' => $this->faker->text(),
             'type' => $this->faker->randomElement(['basic', 'advanced', 'expert']),
             'status' => $this->faker->randomElement(['todo', 'closed', 'hold']),
+            'owner' => $this->faker->numberBetween(1, 10),
         ];
     }
 }
