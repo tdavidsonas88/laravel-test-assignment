@@ -16,11 +16,10 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class TaskController extends Controller
 {
-    protected $user;
+    const STATUS_CLOSED = 'closed';
 
-    public function __construct()
-    {
-        $this->user = JWTAuth::parseToken()->authenticate();
+    protected function user() {
+        return JWTAuth::parseToken()->authenticate();
     }
 
     /**
@@ -29,7 +28,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = $this->user
+        $tasks = $this->user()
             ->tasks()
             ->with('messages')
             ->get()
@@ -70,22 +69,22 @@ class TaskController extends Controller
         $task->description = $request->description;
         $task->type = $request->type;
         $task->status = $request->status;
-        $task->owner = $this->user->id;
+        $task->owner = $this->user()->id;
         $usersTaskToBeAttached = $request->attach;
 
         // task is attached to the owner on save
-        if ($this->user->tasks()->save($task)) {
+        if ($this->user()->tasks()->save($task)) {
             // task can be attached to other users
             if (!empty($request->attach)) {
                 $this->attachUsersToTasks($task->id, $usersTaskToBeAttached);
             }
             return new JsonResponse(
-                'task ' . $task->title . ' was created successfully',
+                'task ' . $task->name . ' was created successfully',
                 \Illuminate\Http\Response::HTTP_CREATED
             );
         } else {
             return new JsonResponse(
-                'task ' . $task->title . ' failed to create',
+                'task ' . $task->name . ' failed to create',
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
@@ -137,7 +136,7 @@ class TaskController extends Controller
         /** @var Task $task */
         $task = Task::find($taskId);
 
-        if ($task === null || $task->owner !== $this->user->id) {
+        if ($task === null || $task->owner !== $this->user()->id) {
             return new JsonResponse(
                 'task with id ' . $taskId . ' cannot be updated because you are not the owner of it',
                 Response::HTTP_INTERNAL_SERVER_ERROR
@@ -167,6 +166,34 @@ class TaskController extends Controller
         }
     }
 
+    public function close(int $taskId)
+    {
+        /** @var Task $task */
+        $task = Task::find($taskId);
+
+        if ($task === null || $task->owner !== $this->user()->id) {
+            return new JsonResponse(
+                'task with id ' . $taskId . ' cannot be updated because you are not the owner of it',
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+
+        $task->status = self::STATUS_CLOSED;
+
+        if ($task->save()) {
+            return new JsonResponse(
+                'task ' . $task->name . ' was closed successfully',
+                \Illuminate\Http\Response::HTTP_OK
+            );
+        } else {
+            return new JsonResponse(
+                'task ' . $task->name . ' failed to close',
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -176,7 +203,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        if ($task->owner !== $this->user->id) {
+        if ($task->owner !== $this->user()->id) {
             return new JsonResponse(
                 'task [' . $task->name . '] cannot be deleted because you are not the owner of it',
                 Response::HTTP_INTERNAL_SERVER_ERROR
@@ -188,16 +215,11 @@ class TaskController extends Controller
         }
     }
 
-    public function attachUser(Task $task)
-    {
-
-    }
-
     /**
      * @param $taskId
      * @param array $usersToAttach
      */
-    public function attachUsersToTasks($taskId, array $usersToAttach): void
+    public function attachUsersToTasks(int $taskId, array $usersToAttach): void
     {
         foreach ($usersToAttach as $userId) {
             DB::table('task_user')->insert(
@@ -208,4 +230,6 @@ class TaskController extends Controller
             );
         }
     }
+
+
 }

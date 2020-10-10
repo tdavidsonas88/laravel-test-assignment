@@ -28,6 +28,7 @@ Route::post('register', 'App\Http\Controllers\AuthController@register');
 Route::group(['middleware' => 'auth.jwt'], function () {
     Route::post('logout', 'App\Http\Controllers\AuthController@logout');
     Route::resource('tasks', TaskController::class);
+    Route::put('/tasks/close/{task}', 'App\Http\Controllers\TaskController@close');
 });
 
 
