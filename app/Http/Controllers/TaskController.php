@@ -6,6 +6,7 @@ use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
@@ -57,8 +58,8 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            "name" => "required",
-            "description" => "required",
+            "name" => "required|max:255",
+            "description" => "required|max:4096",
             "type" => "in:basic,advanced,expert",
             "status" => "in:todo,closed,hold",
             "attach" => "array"
@@ -70,12 +71,13 @@ class TaskController extends Controller
         $task->type = $request->type;
         $task->status = $request->status;
         $task->owner = $this->user->id;
+        $usersTaskToBeAttached = $request->attach;
 
         // task is attached to the owner on save
         if ($this->user->tasks()->save($task)) {
             // task can be attached to other users
             if (!empty($request->attach)) {
-                $this->attachUsersToTasks($request->attach);
+                $this->attachUsersToTasks($task->id, $usersTaskToBeAttached);
             }
             return new JsonResponse(
                 'task ' . $task->title . ' was created successfully',
@@ -120,23 +122,24 @@ class TaskController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param  int  $taskId
      * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $taskId)
     {
         $this->validate($request, [
-            "name" => "required",
-            "description" => "required",
+            "name" => "required|max:255",
+            "description" => "required|max:4096",
             "type" => "in:basic,advanced,expert",
             "status" => "in:todo,closed,hold"
         ]);
 
-        $task = Task::find($id);
+        /** @var Task $task */
+        $task = Task::find($taskId);
 
-        if ($task->owner !== $this->user->id) {
+        if ($task === null || $task->owner !== $this->user->id) {
             return new JsonResponse(
-                'task ' . $task->title . ' cannot be update because you are not the owner of it',
+                'task with id ' . $taskId . ' cannot be updated because you are not the owner of it',
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
@@ -145,15 +148,20 @@ class TaskController extends Controller
         $task->description = $request->description;
         $task->type = $request->type;
         $task->status = $request->status;
+        $usersTaskToBeAttached = $request->attach;
 
-        if ($this->user->tasks()->save($task)) {
+        if ($task->save()) {
+            if (!empty($request->attach)) {
+                $this->attachUsersToTasks($taskId, $usersTaskToBeAttached);
+            }
+
             return new JsonResponse(
-                'task ' . $task->title . ' was updated successfully',
+                'task ' . $task->name . ' was updated successfully',
                 \Illuminate\Http\Response::HTTP_OK
             );
         } else {
             return new JsonResponse(
-                'task ' . $task->title . ' failed to update',
+                'task ' . $task->name . ' failed to update',
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
@@ -186,12 +194,18 @@ class TaskController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param $taskId
+     * @param array $usersToAttach
      */
-    public function attachUsersToTasks($usersToAttach): void
+    public function attachUsersToTasks($taskId, array $usersToAttach): void
     {
-        foreach ($usersToAttach as $user) {
-            $this->user->tasks()->attach($user);
+        foreach ($usersToAttach as $userId) {
+            DB::table('task_user')->insert(
+                [
+                    'task_id' => $taskId,
+                    'user_id' => $userId
+                ]
+            );
         }
     }
 }
