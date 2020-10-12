@@ -143,7 +143,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $messagesPaginator = Message::where('owner', $this->user()->id)->paginate(5);
+        $messagesPaginator = Message::where('owner', $this->user()->id)->orderBy('task_id', 'ASC')->paginate(5);
         $messages = $messagesPaginator->getCollection();
         $fractal = new Manager();
         $resource = new Collection($messages, new MessageTransformer());
