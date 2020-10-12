@@ -48,8 +48,12 @@ class MessageController extends Controller
         }
     }
 
-    public function update(int $taskId, int $messageId, Request $request)
+    public function update(int $messageId, Request $request)
     {
+
+        $message = Message::find($messageId);
+        $taskId = $message->task_id;
+
         /** @var Task $task */
         $task = Task::find($taskId);
 
@@ -60,7 +64,6 @@ class MessageController extends Controller
             );
         }
 
-        $message = Message::find($messageId);
 
         if ($message->task_id !== $taskId) {
             return new JsonResponse(

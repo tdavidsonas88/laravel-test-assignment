@@ -32,7 +32,7 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 
     // routes related to messages
     Route::post('/tasks/{task}/message/create', 'App\Http\Controllers\MessageController@create');
-    Route::put('/tasks/{task}/message/{message}/update', 'App\Http\Controllers\MessageController@update');
+    Route::put('/messages/{message}/update', 'App\Http\Controllers\MessageController@update');
     Route::get('/tasks/{task}/message/{message}', 'App\Http\Controllers\MessageController@show');
 });
 
