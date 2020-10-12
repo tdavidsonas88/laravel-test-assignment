@@ -2,83 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Message;
+use App\Models\Task;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class MessageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    protected function user() {
+        return JWTAuth::parseToken()->authenticate();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function createMessage(int $taskId, Request $request)
     {
-        //
-    }
+        /** @var Task $task */
+        $task = Task::find($taskId);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        if ($task === null || $task->owner !== $this->user()->id) {
+            return new JsonResponse(
+                'task id ' . $taskId . ' message cannot be created because you are not the owner of it',
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $message = new Message();
+        $message->subject = $request->subject;
+        $message->message = $request->message;
+        $message->owner = $this->user()->id;
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        if ($task->messages()->save($message)) {
+            return new JsonResponse(
+                'Message ' . $message->subject . ' was created successfully',
+                \Illuminate\Http\Response::HTTP_CREATED
+            );
+        } else {
+            return new JsonResponse(
+                'Message ' . $message->subject. ' failed to create',
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
     }
 }
