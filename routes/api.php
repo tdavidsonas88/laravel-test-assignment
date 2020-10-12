@@ -31,7 +31,8 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::put('/tasks/close/{task}', 'App\Http\Controllers\TaskController@close');
 
     // routes related to messages
-    Route::post('/tasks/{task}/message/create', 'App\Http\Controllers\MessageController@createMessage');
+    Route::post('/tasks/{task}/message/create', 'App\Http\Controllers\MessageController@create');
+    Route::put('/tasks/{task}/message/{message}/update', 'App\Http\Controllers\MessageController@update');
 });
 
 
