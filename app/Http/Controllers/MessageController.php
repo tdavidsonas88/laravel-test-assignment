@@ -88,7 +88,6 @@ class MessageController extends Controller
 
     public function show(int $messageId)
     {
-
         $message = Message::find($messageId);
         $taskId = $message->task_id;
 
@@ -112,5 +111,26 @@ class MessageController extends Controller
         $fractal = new Manager();
         $resource = new Item($message, new MessageTransformer());
         return $fractal->createData($resource)->toJson();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Task $task
+     * @return string
+     * @throws \Exception
+     */
+    public function destroy(Message $message)
+    {
+        if ($message->owner !== $this->user()->id) {
+            return new JsonResponse(
+                'Message [' . $message->subject . '] cannot be deleted because you are not the owner of it',
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+
+        if ($message->delete()) {
+            return new JsonResponse("Message [" . $message->subject . "] was deleted successfully", Response::HTTP_OK);
+        }
     }
 }
