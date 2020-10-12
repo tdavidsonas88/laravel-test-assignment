@@ -12,6 +12,7 @@ class Message extends Model
     protected $fillable = [
         'subject',
         'message',
+        'owner',
         'task_id'
     ];
 }

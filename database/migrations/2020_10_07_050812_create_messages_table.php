@@ -17,6 +17,7 @@ class CreateMessagesTable extends Migration
             $table->id();
             $table->string('subject');
             $table->text('message');
+            $table->foreignId('owner');
             $table->foreignId('task_id');
             $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
             $table->timestamps();

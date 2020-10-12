@@ -29,6 +29,8 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::post('logout', 'App\Http\Controllers\AuthController@logout');
     Route::resource('tasks', TaskController::class);
     Route::put('/tasks/close/{task}', 'App\Http\Controllers\TaskController@close');
+
+    Route::resource('messages', \App\Http\Controllers\MessageController::class);
 });
 
 
