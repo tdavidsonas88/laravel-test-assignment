@@ -6,7 +6,10 @@ use App\Models\Message;
 use App\Models\Task;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use League\Fractal\Manager;
+use League\Fractal\Resource\Item;
 use Symfony\Component\HttpFoundation\Response;
+use Transformers\MessageTransformer;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class MessageController extends Controller
@@ -58,6 +61,14 @@ class MessageController extends Controller
         }
 
         $message = Message::find($messageId);
+
+        if ($message->task_id !== $taskId) {
+            return new JsonResponse(
+                'task id ' . $taskId . ' does not have related message with id ' . $messageId,
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+
         $message->subject = $request->subject;
         $message->message = $request->message;
 
@@ -72,5 +83,31 @@ class MessageController extends Controller
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
+    }
+
+    public function show(int $taskId, int $messageId )
+    {
+        /** @var Task $task */
+        $task = Task::find($taskId);
+
+        if ($task === null || $task->owner !== $this->user()->id) {
+            return new JsonResponse(
+                'task id ' . $taskId . ' message cannot be shown because you are not the owner of it',
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+
+        $message = Message::find($messageId);
+
+        if ($message->task_id !== $taskId) {
+            return new JsonResponse(
+                'task id ' . $taskId . ' does not have related message with id ' . $messageId,
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+
+        $fractal = new Manager();
+        $resource = new Item($message, new MessageTransformer());
+        return $fractal->createData($resource)->toJson();
     }
 }
