@@ -7,6 +7,8 @@ use App\Models\Task;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use League\Fractal\Manager;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use Symfony\Component\HttpFoundation\Response;
 use Transformers\MessageTransformer;
@@ -132,5 +134,20 @@ class MessageController extends Controller
         if ($message->delete()) {
             return new JsonResponse("Message [" . $message->subject . "] was deleted successfully", Response::HTTP_OK);
         }
+    }
+
+    /**
+     * List of user owner/attached messages
+     *
+     * @return string
+     */
+    public function index()
+    {
+        $messagesPaginator = Message::where('owner', $this->user()->id)->paginate(5);
+        $messages = $messagesPaginator->getCollection();
+        $fractal = new Manager();
+        $resource = new Collection($messages, new MessageTransformer());
+        $resource->setPaginator(new IlluminatePaginatorAdapter($messagesPaginator));
+        return $fractal->createData($resource)->toJson();
     }
 }

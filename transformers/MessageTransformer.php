@@ -14,7 +14,8 @@ class MessageTransformer extends TransformerAbstract
             'id' => (int) $message['id'],
             'subject' => $message['subject'],
             'message' => $message['message'],
-            'owner' => $message['owner']
+            'owner' => $message['owner'],
+            'task_id' => $message['task_id']
         ];
     }
 }
