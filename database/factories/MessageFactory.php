@@ -24,7 +24,7 @@ class MessageFactory extends Factory
         return [
             'subject' => $this->faker->word(),
             'message' => $this->faker->text(),
-            'task_id' => $this->faker->numberBetween(1, 10),
+            'task_id' => $this->faker->numberBetween(1, 50),
         ];
     }
 }

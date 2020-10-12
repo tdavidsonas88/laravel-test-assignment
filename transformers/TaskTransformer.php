@@ -8,7 +8,7 @@ use League\Fractal\TransformerAbstract;
 
 class TaskTransformer extends TransformerAbstract
 {
-    public function transform(Array $task)
+    public function transform($task)
     {
         return [
             'id' => (int) $task['id'],

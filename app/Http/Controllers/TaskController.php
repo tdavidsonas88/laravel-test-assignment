@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use League\Fractal\Manager;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,13 +29,15 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = $this->user()
+        $tasksPaginator = $this->user()
             ->tasks()
             ->with('messages')
-            ->get()
-            ->toArray();
+            ->paginate(5);
+        $tasks = $tasksPaginator->getCollection();
+
         $fractal = new Manager();
         $resource = new Collection($tasks, new TaskTransformer());
+        $resource->setPaginator(new IlluminatePaginatorAdapter($tasksPaginator));
         return $fractal->createData($resource)->toJson();
     }
 

@@ -24,16 +24,18 @@ class DatabaseSeeder extends Seeder
         DB::table('messages')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
-         User::factory(10)->create();
-         Task::factory(10)->create();
-         Message::factory(10)->create();
+         User::factory(5)->create();
+         Task::factory(50)->create();
+         Message::factory(100)->create();
 
-         // Get all the roles attaching up to 3 random roles to each user
          $tasks = Task::all();
          User::all()->each(function ($user) use ($tasks){
-             $user->tasks()->attach(
-                 $tasks->random(rand(1, 3))->pluck('id')->toArray()
-             );
+
+             foreach ($tasks as $task) {
+                 if ($task->owner === $user->id) {
+                     $user->tasks()->attach($task->id);
+                 }
+             }
          });
     }
 }
