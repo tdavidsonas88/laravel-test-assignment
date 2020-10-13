@@ -16,8 +16,8 @@ messages attached to them. The scope of this assignment is the backend (API) onl
 - `php artisan key:generate`
 - `php artisan serve`
 - Use your favorite REST client like: Insomnia or Postman. For example:
-- Login to http://localhost:8000/api/login with email (pick any from `users` table) and password (`123456`)
-- Create your requests, for example:
+    - Login to http://localhost:8000/api/login with email (pick any from `users` table) and password (`123456`)
+    - Create your requests, for example:
 
 to get all tasks: 
 [GET] http://localhost:8000/api/tasks
