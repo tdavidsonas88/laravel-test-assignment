@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('/messages/{message}', 'App\Http\Controllers\MessageController@show');
     Route::delete('/messages/{message}', 'App\Http\Controllers\MessageController@destroy');
     Route::get('/messages', 'App\Http\Controllers\MessageController@index');
+    Route::post('/messages/logs', 'App\Http\Controllers\MessageController@logs');
 });
 
 

@@ -17,7 +17,8 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class MessageController extends Controller
 {
-    protected function user() {
+    protected function user()
+    {
         return JWTAuth::parseToken()->authenticate();
     }
 
@@ -45,7 +46,7 @@ class MessageController extends Controller
             );
         } else {
             return new JsonResponse(
-                'Message ' . $message->subject. ' failed to create',
+                'Message ' . $message->subject . ' failed to create',
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
@@ -83,7 +84,7 @@ class MessageController extends Controller
             );
         } else {
             return new JsonResponse(
-                'Message ' . $message->subject. ' failed to update',
+                'Message ' . $message->subject . ' failed to update',
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
@@ -119,7 +120,7 @@ class MessageController extends Controller
             );
         }
         // log created when message is viewed
-        Log::info('Message ' . $message->subject . ' was viewed [' . now()->timestamp .']');
+        Log::info('Message [id]' . $message->id . '[/id] ' . $message->subject . ' was viewed [' . now()->timestamp . ']');
 
         $fractal = new Manager();
         $resource = new Item($message, new MessageTransformer());
@@ -160,5 +161,44 @@ class MessageController extends Controller
         $resource = new Collection($messages, new MessageTransformer());
         $resource->setPaginator(new IlluminatePaginatorAdapter($messagesPaginator));
         return $fractal->createData($resource)->toJson();
+    }
+
+    /**
+     * Message log for all tasks I'm attached to or I'm the owner of
+     * @return JsonResponse
+     */
+    public function logs()
+    {
+        $logFile = storage_path('logs/laravel.log');
+        $lines = file($logFile);
+        $messagesInfoLogs = $this->findLogMessagesByOwner($lines);
+
+        return new JsonResponse(
+            $messagesInfoLogs,
+            Response::HTTP_OK
+        );
+    }
+
+    /**
+     * @param bool $lines
+     * @param $results
+     * @return array
+     */
+    private function findLogMessagesByOwner(array $lines): array
+    {
+        $messagesInfoLogs = [];
+        foreach ($lines as $line) {
+            if (strpos($line, 'local.INFO') !== false) {
+                preg_match('#\\[id\\](.+)\\[/id\\]#s', $line, $results);
+                if (!empty($results)) {
+                    $messageId = (int)$results[1];
+                    $message = Message::find($messageId);
+                    if ($message->owner === $this->user()->id) {
+                        $messagesInfoLogs[] = $line;
+                    }
+                }
+            }
+        }
+        return $messagesInfoLogs;
     }
 }
