@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use App\Models\Task;
+use App\Models\User;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -15,13 +17,25 @@ use Symfony\Component\HttpFoundation\Response;
 use Transformers\MessageTransformer;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
+/**
+ * Class MessageController
+ * @package App\Http\Controllers
+ */
 class MessageController extends Controller
 {
+    /**
+     * @return User
+     */
     protected function user()
     {
         return JWTAuth::parseToken()->authenticate();
     }
 
+    /**
+     * @param int $taskId
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function create(int $taskId, Request $request)
     {
         /** @var Task $task */
@@ -52,6 +66,11 @@ class MessageController extends Controller
         }
     }
 
+    /**
+     * @param int $messageId
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function update(int $messageId, Request $request)
     {
         $message = Message::find($messageId);
@@ -90,6 +109,10 @@ class MessageController extends Controller
         }
     }
 
+    /**
+     * @param int $messageId
+     * @return JsonResponse|string
+     */
     public function show(int $messageId)
     {
         $message = Message::find($messageId);
@@ -99,8 +122,6 @@ class MessageController extends Controller
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
-
-
         $taskId = $message->task_id;
 
         /** @var Task $task */
@@ -130,9 +151,9 @@ class MessageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Task $task
-     * @return string
-     * @throws \Exception
+     * @param Message $message
+     * @return JsonResponse
+     * @throws Exception
      */
     public function destroy(Message $message)
     {
@@ -180,8 +201,7 @@ class MessageController extends Controller
     }
 
     /**
-     * @param bool $lines
-     * @param $results
+     * @param array $lines
      * @return array
      */
     private function findLogMessagesByOwner(array $lines): array

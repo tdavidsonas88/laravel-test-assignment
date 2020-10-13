@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\ValidationException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Http\Request;
 
+/**
+ * Class AuthController
+ * @package App\Http\Controllers
+ */
 class AuthController extends Controller
 {
     public $loginAfterSignUp = true;
@@ -25,7 +31,7 @@ class AuthController extends Controller
      * Get a JWT via given credentials.
      *
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function login(Request $request)
     {
@@ -64,11 +70,12 @@ class AuthController extends Controller
 
     }
 
-
     /**
      * Log the user out (Invalidate the token).
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @return JsonResponse
+     * @throws ValidationException
      */
     public function logout(Request $request)
     {
@@ -82,10 +89,6 @@ class AuthController extends Controller
         } catch (JWTException $exception) {
             return response()->json(['message' => 'Failed to logout']);
         }
-
-//        auth()->logout();
-
-        return response()->json(['message' => 'Successfully logged out']);
     }
 
     /**
@@ -93,7 +96,7 @@ class AuthController extends Controller
      *
      * @param  string $token
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     protected function respondWithToken($token)
     {

@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
+use App\Models\User;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 use League\Fractal\Manager;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use League\Fractal\Resource\Collection;
@@ -19,13 +22,16 @@ class TaskController extends Controller
 {
     const STATUS_CLOSED = 'closed';
 
+    /**
+     * @return User
+     */
     protected function user() {
         return JWTAuth::parseToken()->authenticate();
     }
 
     /**
      * Display a listing of user owned resource.
-     *
+     * @return string
      */
     public function index()
     {
@@ -44,7 +50,7 @@ class TaskController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function create()
     {
@@ -55,7 +61,8 @@ class TaskController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return JsonResponse|\Illuminate\Http\Response|object
+     * @return JsonResponse
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -111,7 +118,7 @@ class TaskController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return TaskResource
+     * @return void
      */
     public function edit(Request $request, int $id)
     {
@@ -122,8 +129,10 @@ class TaskController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $taskId
+     * @param int $taskId
      * @return JsonResponse
+     *
+     * @throws ValidationException
      */
     public function update(Request $request, int $taskId)
     {
@@ -167,6 +176,10 @@ class TaskController extends Controller
         }
     }
 
+    /**
+     * @param int $taskId
+     * @return JsonResponse
+     */
     public function close(int $taskId)
     {
         /** @var Task $task */
@@ -200,7 +213,7 @@ class TaskController extends Controller
      *
      * @param Task $task
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(Task $task)
     {
