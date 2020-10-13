@@ -6,6 +6,7 @@ use App\Models\Message;
 use App\Models\Task;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use League\Fractal\Manager;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use League\Fractal\Resource\Collection;
@@ -91,6 +92,14 @@ class MessageController extends Controller
     public function show(int $messageId)
     {
         $message = Message::find($messageId);
+        if ($message === null) {
+            return new JsonResponse(
+                'there is no such message with id ' . $messageId,
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+
+
         $taskId = $message->task_id;
 
         /** @var Task $task */
@@ -109,6 +118,8 @@ class MessageController extends Controller
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
+        // log created when message is viewed
+        Log::info('Message ' . $message->subject . ' was viewed [' . now()->timestamp .']');
 
         $fractal = new Manager();
         $resource = new Item($message, new MessageTransformer());
